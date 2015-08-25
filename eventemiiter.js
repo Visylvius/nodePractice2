@@ -76,4 +76,7 @@ http.createServer(function(request, response) {
   request.pipe(newFile);
 }).listen(8080);
 
+w.log(chunk.toString());
+
 // end of section 3
+//section 4
