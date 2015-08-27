@@ -15,6 +15,11 @@
         //emit the message event on the servewr
         socket.emit('messages', message);
       });
+      server.on('connect', function(data) {
+        $('#status').html('Connected to chattr');
+        nickname = prompt('What is your nickname');
+        server.emit('join', nickname);
+      });
     </script>
   </head>
   <body>
