@@ -10,6 +10,13 @@
         //on client emit, the key is hello, so you use data.hello
         alert(data.hello);
       });
+      socket.on('add chatter', function(name) {
+        var chatter = $('<li'+name+'</li>').data('name', name);
+        $('#chatters').append(chatter);
+      });
+      server.on('remove chatter', function(name) {
+        $('#chatters li[data-name='+ name +']').remove();
+      })
       $('#chat_form').submit(function(e){
         var message = $('#chat_input').val();
         //emit the message event on the servewr
