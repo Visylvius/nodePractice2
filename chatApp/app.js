@@ -25,6 +25,26 @@ io.on('connection', function(client){
     client.nickname = name;
   });
 });
+//start of section 7
+var messages = [];
+var storeMessage = function(name, data) {
+  messages.push({name: name, data: data});
+  if (messages.length > 10) {
+    messages.shift();
+  }
+};
+io.sockets.on('connection', function(client){
+  client.on('join', function(name){
+    client.set('nickname', name);
+    client.broadcast.emit('chat', name + " joined the chat");
+  });
+  client.on('messages', function(message) {
+    client.get('nickname', function(error, name) {
+      client.broadcast.emit('messages', name + ': ' + message);
+      client.emit('messages', name + ': ' + message);
+    });
+  });
+});
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
