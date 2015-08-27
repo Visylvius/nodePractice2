@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+      var socket = io.connect('http://localhost:8080');
+      socket.on('messages', function(data){
+        //on client emit, the key is hello, so you use data.hello
+        alert(data.hello);
+      });
+      $('#chat_form').submit(function(e){
+        var message = $('#chat_input').val();
+        //emit the message event on the servewr
+        socket.emit('messages', message);
+      });
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
